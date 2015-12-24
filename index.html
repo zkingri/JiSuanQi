@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh_CN">
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
+    <meta charset="GBK">
+    <title>計算器</title>
 </head>
 <style>
     .shuzi
@@ -41,16 +41,16 @@
 </style>
 <body style="margin:15px;">
     <div>
-        <p class="xianshi" id="xianshi">jkl</p>
+        <p class="xianshi" id="xianshi">5+6</p>
     </div>
     <div>
         <div class="shuzi" id="qing" onclick="qing()">
             <p>清</p>
         </div>
-        <div class="shuzi" id="chu">
+        <div class="shuzi" id="chu" onclick="chu()">
             <p>÷</p>
         </div>
-        <div class="shuzi" id="cheng">
+        <div class="shuzi" id="cheng" onclick="cheng()">
             <p>×</p>
         </div>
         <div class="shuzi" id="tui" onclick="tui()">
@@ -66,7 +66,7 @@
         <div class="shuzi" id="jiu" onclick="jiu()">
             <p>9</p>
         </div>
-        <div class="shuzi" id="jian">
+        <div class="shuzi" id="jian" onclick="jian()">
             <p>-</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
@@ -79,7 +79,7 @@
         <div class="shuzi" id="liu" onclick="liu()">
             <p>6</p>
         </div>
-        <div class="shuzi" id="jia">
+        <div class="shuzi" id="jia" onclick="jia()">
             <p>+</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
@@ -92,7 +92,7 @@
         <div class="shuzi" id="san" onclick="san()">
             <p>3</p>
         </div>
-        <div class="dengyu" id="dengyu">
+        <div class="dengyu" id="dengyu" onclick="dengyu()">
             <p style="position: relative;top: 25%;">=</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
@@ -103,12 +103,15 @@
             <p>.</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
+        <p>最后更新:2015年12月24日</p>
+
     </div>
 
     <script>
         var q=0;/*清*/
         var d=0;/*小数点*/
         var j=0;/*显示屏上已是计算结果*/
+        var f=0;/*运算符*/
         function qing()
         {
             document.getElementById("xianshi").innerHTML="";
@@ -121,63 +124,100 @@
         {
             if(d==0)/*判断曾经是否输入过小数点*/
             {
-                document.getElementById("xianshi").innerHTML += ".";
+                if(j=1) {
+                    document.getElementById("xianshi").innerHTML = "0.";
+                    j = 0;
+                }
+                else
+                    document.getElementById("xianshi").innerHTML += ".";
                 d = 1;
             }
+        }
+        function jia()
+        {
+            if (document.getElementById("xianshi").innerHTML.charAt(document.getElementById("xianshi").innerHTML.length-1)=='.'||f==1)
+                document.getElementById("xianshi").innerHTML=document.getElementById("xianshi").innerHTML.substring(0,document.getElementById("xianshi").innerHTML.length-1);
+            document.getElementById("xianshi").innerHTML+="+";
+            d=0;
+            f=1;
+        }
+        function jian()
+        {
+            if (document.getElementById("xianshi").innerHTML.charAt(document.getElementById("xianshi").innerHTML.length-1)=='.'||f==1)
+                document.getElementById("xianshi").innerHTML=document.getElementById("xianshi").innerHTML.substring(0,document.getElementById("xianshi").innerHTML.length-1);
+            document.getElementById("xianshi").innerHTML+="-";
+            d=0;
+            f=1;
         }
         function yi(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="1";
             else
                 document.getElementById("xianshi").innerHTML="1";
+            j=0;
+            f=0;
         }
         function er(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="2";
             else
                 document.getElementById("xianshi").innerHTML="2";
+            j=0;
+            f=0;
         }
         function san(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="3";
             else
                 document.getElementById("xianshi").innerHTML="3";
+            j=0;
         }
         function si(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="4";
             else
                 document.getElementById("xianshi").innerHTML="4";
+            j=0;
+            f=0;
         }
         function wu(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="5";
             else
                 document.getElementById("xianshi").innerHTML="5";
+            j=0;
+            f=0;
         }
         function liu(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="6";
             else
                 document.getElementById("xianshi").innerHTML="6";
+            j=0;
+            f=0;
         }
         function qi(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="7";
             else
                 document.getElementById("xianshi").innerHTML="7";
+            j=0;
+            f=0;
         }
         function ba(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="8";
             else
                 document.getElementById("xianshi").innerHTML="8";
+            j=0;
         }
         function jiu(){
             if(j==0)
                 document.getElementById("xianshi").innerHTML+="9";
             else
                 document.getElementById("xianshi").innerHTML="9";
+            j=0;
+            f=0;
         }
         function ling(){
             if(document.getElementById("xianshi").innerHTML=="0");/*若显示屏上已经是0，则不执行操作*/
@@ -185,6 +225,15 @@
                 document.getElementById("xianshi").innerHTML+="0";
             else
                 document.getElementById("xianshi").innerHTML="0";
+            j=0;
+            f=0;
+        }
+        function dengyu()
+        {
+
+            document.getElementById("xianshi").innerHTML=eval(document.getElementById("xianshi").innerHTML);
+            j=1;
+            f=0;
         }
         /*function jia()
         {
