@@ -37,73 +37,78 @@
         margin-bottom:4px;
         position: relative;
         background-color: antiquewhite;
+        border:0px;
+        resize: none;
+        max-lines:1 ;
     }
 </style>
 <body style="margin:15px;">
     <div>
-        <p class="xianshi" id="xianshi">5+6</p>
+        <!--<p class="xianshi" id="xianshi"></p>
+        <textarea readonly="true" rows="1" class="xianshi" id="xianshi"></textarea>-->
+        <input type="text" class="xianshi" id="xianshi" readonly="readonly" value="678675671234">
     </div>
     <div>
-        <div class="shuzi" id="qing" onclick="qing()">
+        <div class="shuzi" id="qing" onclick="qing();wei()">
             <p>清</p>
         </div>
-        <div class="shuzi" id="chu" onclick="chu()">
+        <div class="shuzi" id="chu" onclick="chu();wei()">
             <p>÷</p>
         </div>
-        <div class="shuzi" id="cheng" onclick="cheng()">
+        <div class="shuzi" id="cheng" onclick="cheng();wei()">
             <p>×</p>
         </div>
-        <div class="shuzi" id="tui" onclick="tui()">
+        <div class="shuzi" id="tui" onclick="tui();wei()">
             <p>退</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" id="qi" onclick="qi()">
+        <div class="shuzi" id="qi" onclick="qi();wei()">
             <p>7</p>
         </div>
-        <div class="shuzi" id="ba" onclick="ba()">
+        <div class="shuzi" id="ba" onclick="ba();wei()">
             <p>8</p>
         </div>
-        <div class="shuzi" id="jiu" onclick="jiu()">
+        <div class="shuzi" id="jiu" onclick="jiu();wei()">
             <p>9</p>
         </div>
-        <div class="shuzi" id="jian" onclick="jian()">
+        <div class="shuzi" id="jian" onclick="jian();wei()">
             <p>-</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" id="si" onclick="si()">
+        <div class="shuzi" id="si" onclick="si();wei()">
             <p>4</p>
         </div>
-        <div class="shuzi" id="wu" onclick="wu()">
+        <div class="shuzi" id="wu" onclick="wu();wei()">
             <p>5</p>
         </div>
-        <div class="shuzi" id="liu" onclick="liu()">
+        <div class="shuzi" id="liu" onclick="liu();wei()">
             <p>6</p>
         </div>
-        <div class="shuzi" id="jia" onclick="jia()">
+        <div class="shuzi" id="jia" onclick="jia();wei()">
             <p>+</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" id="yi" onclick="yi()">
+        <div class="shuzi" id="yi" onclick="yi();wei()">
             <p>1</p>
         </div>
-        <div class="shuzi" id="er" onclick="er()">
+        <div class="shuzi" id="er" onclick="er();wei()">
             <p>2</p>
         </div>
-        <div class="shuzi" id="san" onclick="san()">
+        <div class="shuzi" id="san" onclick="san();wei()">
             <p>3</p>
         </div>
-        <div class="dengyu" id="dengyu" onclick="dengyu()">
+        <div class="dengyu" id="dengyu" onclick="dengyu();wei()">
             <p style="position: relative;top: 25%;">=</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" style="width: 164px;position: relative;bottom: 84px;" id="ling" onclick="ling()">
+        <div class="shuzi" style="width: 164px;position: relative;bottom: 84px;" id="ling" onclick="ling();wei()">
             <p>0</p>
         </div>
-        <div class="shuzi" style="position: relative;bottom: 84px;" id="dian" onclick="dian()">
+        <div class="shuzi" style="position: relative;bottom: 84px;" id="dian" onclick="dian();wei()">
             <p>.</p>
         </div>
         <p style="height:4px;margin: 0px"></p>
-        <p>最后更新:2015年12月24日</p>
+        <p>最后更新:2016年1月1日</p>
 
     </div>
 
@@ -112,156 +117,177 @@
         var d=0;/*小数点*/
         var j=0;/*显示屏上已是计算结果*/
         var f=0;/*运算符*/
+        var xs=document.getElementById("xianshi");
         function qing()
         {
-            document.getElementById("xianshi").innerHTML="";
+            xs.value="";
+            d=0;
+            j=0;
+            f=0;
         }
         function tui()
         {
-            document.getElementById("xianshi").innerHTML=document.getElementById("xianshi").innerHTML.substring(0,document.getElementById("xianshi").innerHTML.length-1);
+            if(xs.value.charAt(xs.value.length-1)=='.') d=0;
+            xs.value=xs.value.substring(0,xs.value.length-1);
         }
         function dian()
         {
             if(d==0)/*判断曾经是否输入过小数点*/
             {
-                if(j=1) {
-                    document.getElementById("xianshi").innerHTML = "0.";
+                if(j==1) {
+                    xs.value = "0.";
                     j = 0;
                 }
                 else
-                    document.getElementById("xianshi").innerHTML += ".";
+                    xs.value += ".";
                 d = 1;
             }
         }
         function jia()
         {
-            if (document.getElementById("xianshi").innerHTML.charAt(document.getElementById("xianshi").innerHTML.length-1)=='.'||f==1)
-                document.getElementById("xianshi").innerHTML=document.getElementById("xianshi").innerHTML.substring(0,document.getElementById("xianshi").innerHTML.length-1);
-            document.getElementById("xianshi").innerHTML+="+";
+            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+                xs.value=xs.value.substring(0,xs.value.length-1);
+            xs.value+="+";
             d=0;
             f=1;
+            j=0;
         }
         function jian()
         {
-            if (document.getElementById("xianshi").innerHTML.charAt(document.getElementById("xianshi").innerHTML.length-1)=='.'||f==1)
-                document.getElementById("xianshi").innerHTML=document.getElementById("xianshi").innerHTML.substring(0,document.getElementById("xianshi").innerHTML.length-1);
-            document.getElementById("xianshi").innerHTML+="-";
+            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+                xs.value=xs.value.substring(0,xs.value.length-1);
+            xs.value+="-";
             d=0;
             f=1;
+            j=0;
+        }
+        function cheng()
+        {
+            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+                xs.value=xs.value.substring(0,xs.value.length-1);
+            xs.value+="*";
+            d=0;
+            f=1;
+            j=0;
+        }
+        function chu()
+        {
+            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+                xs.value=xs.value.substring(0,xs.value.length-1);
+            xs.value+="/";
+            d=0;
+            f=1;
+            j=0;
         }
         function yi(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="1";
+                xs.value+="1";
             else
-                document.getElementById("xianshi").innerHTML="1";
+                xs.value="1";
             j=0;
             f=0;
         }
-        function er(){
-            if(j==0)
-                document.getElementById("xianshi").innerHTML+="2";
+        function er() {
+            if (j == 0)
+                xs.value += "2";
             else
-                document.getElementById("xianshi").innerHTML="2";
-            j=0;
-            f=0;
+                xs.value = "2";
+            j = 0;
+            f = 0;
         }
         function san(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="3";
+                xs.value+="3";
             else
-                document.getElementById("xianshi").innerHTML="3";
+                xs.value="3";
             j=0;
+            f=0;
         }
         function si(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="4";
+                xs.value+="4";
             else
-                document.getElementById("xianshi").innerHTML="4";
+                xs.value="4";
             j=0;
             f=0;
         }
         function wu(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="5";
+                xs.value+="5";
             else
-                document.getElementById("xianshi").innerHTML="5";
+                xs.value="5";
             j=0;
             f=0;
         }
         function liu(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="6";
+                xs.value+="6";
             else
-                document.getElementById("xianshi").innerHTML="6";
+                xs.value="6";
             j=0;
             f=0;
         }
         function qi(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="7";
+                xs.value+="7";
             else
-                document.getElementById("xianshi").innerHTML="7";
+                xs.value="7";
             j=0;
             f=0;
         }
         function ba(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="8";
+                xs.value+="8";
             else
-                document.getElementById("xianshi").innerHTML="8";
+                xs.value="8";
             j=0;
+            f=0;
         }
         function jiu(){
             if(j==0)
-                document.getElementById("xianshi").innerHTML+="9";
+                xs.value+="9";
             else
-                document.getElementById("xianshi").innerHTML="9";
+                xs.value="9";
             j=0;
             f=0;
         }
         function ling(){
-            if(document.getElementById("xianshi").innerHTML=="0");/*若显示屏上已经是0，则不执行操作*/
+            if(xs.value=="0");/*若显示屏上已经是0，则不执行操作*/
             else if(j==0)
-                document.getElementById("xianshi").innerHTML+="0";
+                xs.value+="0";
             else
-                document.getElementById("xianshi").innerHTML="0";
+                xs.value="0";
             j=0;
             f=0;
         }
         function dengyu()
         {
-
-            document.getElementById("xianshi").innerHTML=eval(document.getElementById("xianshi").innerHTML);
+            try
+            {
+                eval(xs.value);
+            }
+            catch (oException)
+            {
+                xs.value="错误";
+                j=1;
+            }
+            xs.value=eval(xs.value);
             j=1;
             f=0;
         }
-        /*function jia()
+        function wei()/*将光标移到末尾*/
         {
-            var x=document.getElementById("a").value;
-            var y=document.getElementById("b").value;
-            document.getElementById("c").innerHTML=parseFloat(x)+parseFloat(y);
+            xs.focus();
+            var len = xs.value.length;
+            if (document.selection) {
+                var sel = xs.createTextRange();
+                sel.moveStart('character',len);
+                sel.collapse();
+                sel.select();
+            } else if (typeof xs.selectionStart == 'number' && typeof xs.selectionEnd == 'number') {
+                xs.selectionStart = xs.selectionEnd = len;
+            }
         }
-        function jian()
-        {
-            var x=document.getElementById("a").value;
-            var y=document.getElementById("b").value;
-            document.getElementById("c").innerHTML=parseFloat(x)-parseFloat(y);
-        }
-        function cheng()
-        {
-            var x=document.getElementById("a").value;
-            var y=document.getElementById("b").value;
-            document.getElementById("c").innerHTML=parseFloat(x)*parseFloat(y);
-        }
-        function chu()
-        {
-            var x=document.getElementById("a").value;
-            var y=document.getElementById("b").value;
-            if(parseFloat(y)==0)
-                document.getElementById("c").innerHTML="除数不能为0。";
-            else document.getElementById("c").innerHTML=parseFloat(x)/parseFloat(y);
-        }*/
     </script>
-
 </body>
 </html>
