@@ -1,293 +1,365 @@
 <!DOCTYPE html>
 <html lang="zh_CN">
 <head>
-    <meta charset="GBK">
-    <title>計算器</title>
+    <meta charset="UTF-8">
+    <title>计算器</title>
+    <link href="./tubiao.png" sizes="16*16" type="images/png" rel="icon">
+    <style>
+        .shuzi {
+            font-size:28px;
+            text-align:center;
+            background-color:antiquewhite;
+            color:#111111;
+            line-height:70px;
+            padding:0;
+        }
+
+        .dengyu {
+            text-align:center;
+            font-size:30px;
+            background-color:aquamarine;
+            color:#111111;
+        }
+
+        .xianshi {
+            font-size:28px;
+            text-align:right;
+            line-height:70px;
+            width:279px;
+            height:70px;
+            padding:5px;
+            margin:0;
+            position:relative;
+            left:3px;
+            background-color:antiquewhite;
+            border:0;
+            resize:none;
+            max-lines:1;
+        }
+    </style>
 </head>
-<style>
-    .shuzi
-    {
-        font-size:30px;
-        text-align:center;
-        background-color: antiquewhite;
-        color:#111111;
-        height:80px;
-        width:80px;
-        display: inline-block;
-    }
-    .dengyu
-    {
-        text-align: center;
-        font-size: 30px;
-        background-color: aquamarine;
-        color: #111111;
-        width: 80px;
-        height: 164px;
-        display: inline-block;
-    }
-    .xianshi
-    {
-        font-size: 28px;
-        text-align: right;
-        line-height: 80px;
-        width:322px;
-        height:80px;
-        padding: 5px;
-        margin:0px;
-        margin-bottom:4px;
-        position: relative;
-        background-color: antiquewhite;
-        border:0px;
-        resize: none;
-        max-lines:1 ;
-    }
-</style>
-<body style="margin:15px;">
-    <div>
-        <!--<p class="xianshi" id="xianshi"></p>
-        <textarea readonly="true" rows="1" class="xianshi" id="xianshi"></textarea>-->
-        <input type="text" class="xianshi" id="xianshi" readonly="readonly" value="678675671234">
-    </div>
-    <div>
-        <div class="shuzi" id="qing" onclick="qing();wei()">
-            <p>清</p>
-        </div>
-        <div class="shuzi" id="chu" onclick="chu();wei()">
-            <p>÷</p>
-        </div>
-        <div class="shuzi" id="cheng" onclick="cheng();wei()">
-            <p>×</p>
-        </div>
-        <div class="shuzi" id="tui" onclick="tui();wei()">
-            <p>退</p>
-        </div>
-        <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" id="qi" onclick="qi();wei()">
-            <p>7</p>
-        </div>
-        <div class="shuzi" id="ba" onclick="ba();wei()">
-            <p>8</p>
-        </div>
-        <div class="shuzi" id="jiu" onclick="jiu();wei()">
-            <p>9</p>
-        </div>
-        <div class="shuzi" id="jian" onclick="jian();wei()">
-            <p>-</p>
-        </div>
-        <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" id="si" onclick="si();wei()">
-            <p>4</p>
-        </div>
-        <div class="shuzi" id="wu" onclick="wu();wei()">
-            <p>5</p>
-        </div>
-        <div class="shuzi" id="liu" onclick="liu();wei()">
-            <p>6</p>
-        </div>
-        <div class="shuzi" id="jia" onclick="jia();wei()">
-            <p>+</p>
-        </div>
-        <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" id="yi" onclick="yi();wei()">
-            <p>1</p>
-        </div>
-        <div class="shuzi" id="er" onclick="er();wei()">
-            <p>2</p>
-        </div>
-        <div class="shuzi" id="san" onclick="san();wei()">
-            <p>3</p>
-        </div>
-        <div class="dengyu" id="dengyu" onclick="dengyu();wei()">
-            <p style="position: relative;top: 25%;">=</p>
-        </div>
-        <p style="height:4px;margin: 0px"></p>
-        <div class="shuzi" style="width: 164px;position: relative;bottom: 84px;" id="ling" onclick="ling();wei()">
-            <p>0</p>
-        </div>
-        <div class="shuzi" style="position: relative;bottom: 84px;" id="dian" onclick="dian();wei()">
-            <p>.</p>
-        </div>
-        <p style="height:4px;margin: 0px"></p>
-        <p>最后更新:2016年1月1日</p>
+<body style="margin:15px;" onkeypress="jianpan(event)">
+<input type="text" class="xianshi" id="xianshi" readonly="readonly" value="0">
+<table style="border-spacing:3px;">
+    <tr>
+        <td colspan="2" class="shuzi" style="width:143px;" onclick="qu()">去</td>
+        <td class="shuzi" style="width:70px;" onclick="qing()">清</td>
+        <td class="shuzi" style="width:70px;" onclick="tui();wei()">退</td>
+    </tr>
+    <tr>
+        <td class="shuzi" onclick="zuokuo();wei()">(</td>
+        <td class="shuzi" onclick="youkuo();wei()">)</td>
+        <td class="shuzi" onclick="chu();wei()">÷</td>
+        <td class="shuzi" onclick="cheng();wei()">×</td>
+    </tr>
+    <tr>
+        <td class="shuzi" onclick="qi();wei()">7</td>
+        <td class="shuzi" onclick="ba();wei()">8</td>
+        <td class="shuzi" onclick="jiu();wei()">9</td>
+        <td class="shuzi" onclick="jian();wei()">-</td>
+    </tr>
+    <tr>
+        <td class="shuzi" onclick="si();wei()">4</td>
+        <td class="shuzi" onclick="wu();wei()">5</td>
+        <td class="shuzi" onclick="liu();wei()">6</td>
+        <td class="shuzi" onclick="jia();wei()">+</td>
+    </tr>
+    <tr>
+        <td class="shuzi" onclick="yi();wei()">1</td>
+        <td class="shuzi" onclick="er();wei()">2</td>
+        <td class="shuzi" onclick="san();wei()">3</td>
+        <td rowspan="2" class="dengyu" onclick="dengyu();wei()">=</td>
+    </tr>
+    <tr>
+        <td colspan="2" class="shuzi" onclick="ling();wei()">0</td>
+        <td class="shuzi" onclick="dian();wei()">.</td>
+    </tr>
+</table>
 
-    </div>
+<p>最后更新:2016年2月5日</p>
 
-    <script>
-        var q=0;/*清*/
-        var d=0;/*小数点*/
-        var j=0;/*显示屏上已是计算结果*/
-        var f=0;/*运算符*/
-        var xs=document.getElementById("xianshi");
-        function qing()
-        {
-            xs.value="";
-            d=0;
-            j=0;
-            f=0;
-        }
-        function tui()
-        {
-            if(xs.value.charAt(xs.value.length-1)=='.') d=0;
+<script>
+    var d=0;
+    /*小数点*/
+    var j=0;
+    /*显示屏上已是计算结果*/
+    var f=0;
+    /*运算符*/
+    var xs=document.getElementById("xianshi");
+    function qu() {
+        self.location.href="about:blank";
+    }
+    function qing() {
+        xs.value="0";
+        d=0;
+        j=0;
+        f=0;
+    }
+    function tui() {
+        if (xs.value.charAt(xs.value.length-1)=='.') d=0;
+        /*若删除了小数点，则更改标记*/
+        if (xs.value.length==1) /*若显示屏上只有一位数，则再次退格后将显示屏置为零*/
+            xs.value="0";
+        else if (xs.value=="错误")
+            xs.value="0";
+        else
             xs.value=xs.value.substring(0,xs.value.length-1);
-        }
-        function dian()
+    }
+    function zuokuo() {
+        if (j==0&&xs.value!="0")
+            xs.value+="(";
+        else
+            xs.value="(";
+        j=0;
+        f=0;
+    }
+    function youkuo() {
+        if (j==0&&xs.value!="0")
+            xs.value+=")";
+        else
+            xs.value=")";
+        j=0;
+        f=0;
+    }
+    function dian() {
+        if (d==0) /*若未曾输入过小数点*/
         {
-            if(d==0)/*判断曾经是否输入过小数点*/
-            {
-                if(j==1) {
-                    xs.value = "0.";
-                    j = 0;
-                }
-                else
-                    xs.value += ".";
-                d = 1;
+            if (j==1) {
+                xs.value="0.";
+                j=0;
             }
+            else
+                xs.value+=".";
+            d=1;
         }
-        function jia()
+    }
+    function jia() {
+        if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+            xs.value=xs.value.substring(0,xs.value.length-1);
+        xs.value+="+";
+        d=0;
+        f=1;
+        j=0;
+    }
+    function jian() {
+        if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+            xs.value=xs.value.substring(0,xs.value.length-1);
+        xs.value+="-";
+        d=0;
+        f=1;
+        j=0;
+    }
+    function cheng() {
+        if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+            xs.value=xs.value.substring(0,xs.value.length-1);
+        xs.value+="*";
+        d=0;
+        f=1;
+        j=0;
+    }
+    function chu() {
+        if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
+            xs.value=xs.value.substring(0,xs.value.length-1);
+        xs.value+="/";
+        d=0;
+        f=1;
+        j=0;
+    }
+    function yi() {
+        if (j==0&&xs.value!="0")
+            xs.value+="1";
+        else
+            xs.value="1";
+        j=0;
+        f=0;
+    }
+    function er() {
+        if (j==0&&xs.value!="0")
+            xs.value+="2";
+        else
+            xs.value="2";
+        j=0;
+        f=0;
+    }
+    function san() {
+        if (j==0&&xs.value!="0")
+            xs.value+="3";
+        else
+            xs.value="3";
+        j=0;
+        f=0;
+    }
+    function si() {
+        if (j==0&&xs.value!="0")
+            xs.value+="4";
+        else
+            xs.value="4";
+        j=0;
+        f=0;
+    }
+    function wu() {
+        if (j==0&&xs.value!="0")
+            xs.value+="5";
+        else
+            xs.value="5";
+        j=0;
+        f=0;
+    }
+    function liu() {
+        if (j==0&&xs.value!="0")
+            xs.value+="6";
+        else
+            xs.value="6";
+        j=0;
+        f=0;
+    }
+    function qi() {
+        if (j==0&&xs.value!="0")
+            xs.value+="7";
+        else
+            xs.value="7";
+        j=0;
+        f=0;
+    }
+    function ba() {
+        if (j==0&&xs.value!="0")
+            xs.value+="8";
+        else
+            xs.value="8";
+        j=0;
+        f=0;
+    }
+    function jiu() {
+        if (j==0&&xs.value!="0")
+            xs.value+="9";
+        else
+            xs.value="9";
+        j=0;
+        f=0;
+    }
+    function ling() {
+        if (xs.value!="0")    /*若显示屏上已经是0，则不执行操作*/
         {
-            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
-                xs.value=xs.value.substring(0,xs.value.length-1);
-            xs.value+="+";
-            d=0;
-            f=1;
-            j=0;
-        }
-        function jian()
-        {
-            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
-                xs.value=xs.value.substring(0,xs.value.length-1);
-            xs.value+="-";
-            d=0;
-            f=1;
-            j=0;
-        }
-        function cheng()
-        {
-            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
-                xs.value=xs.value.substring(0,xs.value.length-1);
-            xs.value+="*";
-            d=0;
-            f=1;
-            j=0;
-        }
-        function chu()
-        {
-            if (xs.value.charAt(xs.value.length-1)=='.'||f==1)
-                xs.value=xs.value.substring(0,xs.value.length-1);
-            xs.value+="/";
-            d=0;
-            f=1;
-            j=0;
-        }
-        function yi(){
-            if(j==0)
-                xs.value+="1";
-            else
-                xs.value="1";
-            j=0;
-            f=0;
-        }
-        function er() {
-            if (j == 0)
-                xs.value += "2";
-            else
-                xs.value = "2";
-            j = 0;
-            f = 0;
-        }
-        function san(){
-            if(j==0)
-                xs.value+="3";
-            else
-                xs.value="3";
-            j=0;
-            f=0;
-        }
-        function si(){
-            if(j==0)
-                xs.value+="4";
-            else
-                xs.value="4";
-            j=0;
-            f=0;
-        }
-        function wu(){
-            if(j==0)
-                xs.value+="5";
-            else
-                xs.value="5";
-            j=0;
-            f=0;
-        }
-        function liu(){
-            if(j==0)
-                xs.value+="6";
-            else
-                xs.value="6";
-            j=0;
-            f=0;
-        }
-        function qi(){
-            if(j==0)
-                xs.value+="7";
-            else
-                xs.value="7";
-            j=0;
-            f=0;
-        }
-        function ba(){
-            if(j==0)
-                xs.value+="8";
-            else
-                xs.value="8";
-            j=0;
-            f=0;
-        }
-        function jiu(){
-            if(j==0)
-                xs.value+="9";
-            else
-                xs.value="9";
-            j=0;
-            f=0;
-        }
-        function ling(){
-            if(xs.value=="0");/*若显示屏上已经是0，则不执行操作*/
-            else if(j==0)
+            if (j==0)
                 xs.value+="0";
             else
                 xs.value="0";
             j=0;
             f=0;
         }
-        function dengyu()
-        {
-            try
-            {
-                eval(xs.value);
-            }
-            catch (oException)
-            {
-                xs.value="错误";
-                j=1;
-            }
-            xs.value=eval(xs.value);
+    }
+    function dengyu() {
+        try {
+            eval(xs.value);
+        }
+        catch (oException) {
             j=1;
             f=0;
+            xs.value="错误";
         }
-        function wei()/*将光标移到末尾*/
-        {
-            xs.focus();
-            var len = xs.value.length;
-            if (document.selection) {
-                var sel = xs.createTextRange();
-                sel.moveStart('character',len);
-                sel.collapse();
-                sel.select();
-            } else if (typeof xs.selectionStart == 'number' && typeof xs.selectionEnd == 'number') {
-                xs.selectionStart = xs.selectionEnd = len;
-            }
+        xs.value=eval(xs.value);
+        j=1;
+        f=0;
+    }
+    function wei()  /*将光标移到末尾*/ {
+        xs.focus();
+        var len=xs.value.length;
+        if (document.selection) {
+            var sel=xs.createTextRange();
+            sel.moveStart('character',len);
+            sel.collapse();
+            sel.select();
+        } else if (typeof xs.selectionStart=='number'&&typeof xs.selectionEnd=='number') {
+            xs.selectionStart=xs.selectionEnd=len;
         }
-    </script>
+    }
+    function jianpan(e) {
+        var anjian;
+        anjian=window.event?e.keyCode:e.which;
+        switch (anjian) {
+            case 67:/*C 清除*/
+            case 99:
+                qing();
+                break;
+            case 8:/*退格*/
+                tui();
+                wei();
+                break;
+            case 43:/*加*/
+                jia();
+                wei();
+                break;
+            case 45:/*减*/
+                jian();
+                wei();
+                break;
+            case 42:/*乘*/
+                cheng();
+                wei();
+                break;
+            case 47:/*除*/
+                chu();
+                wei();
+                break;
+            case 40:/*左括号*/
+                zuokuo();
+                wei();
+                break;
+            case 41:/*右括号*/
+                youkuo();
+                wei();
+                break;
+            case 46:/*点*/
+                dian();
+                wei();
+                break;
+            case 48:/*0*/
+                ling();
+                wei();
+                break;
+            case 49:/*1*/
+                yi();
+                wei();
+                break;
+            case 50:/*2*/
+                er();
+                wei();
+                break;
+            case 51:/*3*/
+                san();
+                wei();
+                break;
+            case 52:/*4*/
+                si();
+                wei();
+                break;
+            case 53:/*5*/
+                wu();
+                wei();
+                break;
+            case 54:/*6*/
+                liu();
+                wei();
+                break;
+            case 55:/*7*/
+                qi();
+                wei();
+                break;
+            case 56:/*8*/
+                ba();
+                wei();
+                break;
+            case 57:/*9*/
+                jiu();
+                wei();
+                break;
+            case 13:/*回车*/
+            case 61:/*等于*/
+                dengyu();
+                wei();
+                break;
+        }
+    }
+</script>
 </body>
 </html>
